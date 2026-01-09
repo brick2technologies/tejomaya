@@ -45,11 +45,11 @@ const products = [
 
 export default function ProductsSection() {
   return (
-    <section className="relative bg-[#f15c22] pb-20 px-6 sm:px-12">
+    <section className="relative bg-transparent pb-20 px-6 sm:px-12">
       <div className="max-w-[1440px] mx-auto pb-28">
         {/* SECTION HEADER */}
         <div className="mb-16 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 merienda">
+          <h2 className="text-4xl md:text-5xl font-bold text-[#f15c22] mb-4 merienda">
             Our Products
           </h2>
 
@@ -68,7 +68,7 @@ export default function ProductsSection() {
               key={product.id}
               className="
                 group relative
-                bg-[linear-gradient(to_bottom_right,#8CC540_42%,#FFFFFF_83%)]
+                bg-white
                 border border-white/30
                 rounded-[2.5rem]
                 p-8
@@ -119,7 +119,7 @@ export default function ProductsSection() {
       </div>
 
       {/* WHITE CURVED DIV */}
-<div className="absolute bottom-0 left-0 w-full overflow-hidden">
+<div className="absolute bottom-0 left-0 w-full overflow-hidden z-30">
   <div className="w-full h-[60px] md:h-[80px] bg-white rounded-tl-[120px] rounded-tr-[120px]" />
 </div>
 

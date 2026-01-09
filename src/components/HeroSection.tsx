@@ -71,8 +71,9 @@ export default function HeroImageSlider() {
 
   return (
     <>
-      <section className="relative overflow-hidden h-[70vh] sm:h-[75vh] md:h-[80vh] lg:h-[85vh] pt-24 md:pt-28 z-20 bg-[radial-gradient(circle_at_top,rgba(140,197,64,0.25)_0%,rgba(241,92,34,0.18)_35%,white_70%)] ">
-        <div className="relative z-10 h-full max-w-[1440px] mx-auto">
+      <section className="relative overflow-hidden h-[70vh] sm:h-[75vh] md:h-[80vh] lg:h-[85vh] pt-24 md:pt-28 z-20  ">
+        <div className="relative z-10 h-full w-full px-[5%] mx-auto">
+
           <div
             className="overflow-hidden h-full"
             onTouchStart={onTouchStart}
@@ -90,7 +91,7 @@ export default function HeroImageSlider() {
                   key={index}
                   className="min-w-full h-full px-5 py-2 sm:p-6 md:p-8 flex-shrink-0 flex items-center justify-center"
                 >
-                  <div className="relative w-full h-full max-h-[500px] sm:max-h-none rounded-3xl overflow-hidden bg-gray-50 flex items-center justify-center border border-gray-100 shadow-md">
+                  <div className="relative w-full h-full max-h-[500px] sm:max-h-none rounded-3xl overflow-hidden bg-gray-50 flex items-center justify-center border ">
                     <picture className="w-full h-full flex items-center justify-center">
                       <source media="(min-width: 1024px)" srcSet={slide.desktop} />
                       <source media="(min-width: 640px)" srcSet={slide.tablet} />
@@ -131,9 +132,9 @@ export default function HeroImageSlider() {
         </div>
 
         {/* GREEN CURVED DIV */}
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden pointer-events-none">
+        {/* <div className="absolute bottom-0 left-0 w-full overflow-hidden pointer-events-none">
           <div className="w-full h-[100px] md:h-[160px] bg-[#8cc540] rounded-tl-[120px] rounded-tr-[120px]" />
-        </div>
+        </div> */}
       </section>  
     </>
   );

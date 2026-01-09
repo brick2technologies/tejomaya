@@ -17,12 +17,12 @@ const categories = [
 
 export default function CategoriesSection() {
   return (
-    <section className="relative py-20 pb-20 bg-[#8cc540] overflow-hidden">
+    <section className="relative py-20 pb-20 bg-transparent overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 pb-10">
 
         {/* Heading */}
         <div className="text-center mb-14">
-          <h2 className="text-4xl font-bold text-[#f15c22] merienda">
+          <h2 className="text-4xl md:text-5xl font-bold text-[#f15c22] merienda">
             Our Categories
           </h2>
           <p className="mt-4 text-white/80">
@@ -49,7 +49,7 @@ export default function CategoriesSection() {
               </div>
 
               {/* Title */}
-              <h3 className="mt-6 text-sm md:text-lg font-semibold text-white text-center">
+              <h3 className="mt-6 text-sm md:text-lg font-semibold text-[#f15c22] text-center">
                 {item.title}
               </h3>
             </motion.div>
@@ -59,9 +59,9 @@ export default function CategoriesSection() {
 
      
       {/* GREEN CURVED DIV */}
-<div className="absolute bottom-0 left-0 w-full overflow-hidden">
+{/* <div className="absolute bottom-0 left-0 w-full overflow-hidden">
   <div className="w-full h-[50px] md:h-[90px] bg-[#f15c22] rounded-tl-[90px] rounded-tr-[90px]" />
-</div>
+</div> */}
 
     </section>
   );

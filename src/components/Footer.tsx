@@ -13,7 +13,7 @@ export default function Footer() {
   return (
     <footer
       ref={footerRef}
-      className="sticky bottom-0 bg-[#8cc540] text-white overflow-hidden"
+      className="relative bg-[#8cc540] text-white overflow-hidden"
     >
       <motion.div
         style={{ y, opacity }}
