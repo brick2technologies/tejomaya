@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+/* ===============================
+   Custom Font: Merienda
+================================ */
+@font-face {
+  font-family: "Merienda";
+  src: url("/src/assets/fonts/Merienda-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Merienda";
+  src: url("/src/assets/fonts/Merienda-Bold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+.merienda {
+  font-family: "Merienda", cursive;
+}
