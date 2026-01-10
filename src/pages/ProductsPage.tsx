@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useCart } from "../context/CartContext";
+
 
 const products = [
   {
@@ -26,7 +26,7 @@ const products = [
 ];
 
 export default function ProductsPage() {
-  const { addToCart } = useCart();
+  
 
   return (
     <section className="relative bg-gray-50 overflow-hidden">
@@ -92,13 +92,7 @@ export default function ProductsPage() {
 
                 {/* CTA */}
                 <button
-                  onClick={() =>
-                    addToCart({
-                      name: product.name,
-                      price: product.price,
-                      quantity: 1,
-                    })
-                  }
+                  
                   className="mt-6 w-full py-2.5 rounded-full bg-[#8CC540] text-white font-semibold hover:bg-[#76ab34] transition"
                 >
                   Order Now
