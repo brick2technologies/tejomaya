@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 
-
 const products = [
   {
     name: "Idly Batter",
@@ -26,10 +25,8 @@ const products = [
 ];
 
 export default function ProductsPage() {
-  
-
   return (
-    <section className="relative bg-gray-50 overflow-hidden">
+    <section className="relative bg-gray-50 overflow-hidden pb-24">
       {/* CONTENT */}
       <div className="py-20 sm:py-24 lg:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
@@ -91,10 +88,7 @@ export default function ProductsPage() {
                 </div>
 
                 {/* CTA */}
-                <button
-                  
-                  className="mt-6 w-full py-2.5 rounded-full bg-[#8CC540] text-white font-semibold hover:bg-[#76ab34] transition"
-                >
+                <button className="mt-6 w-full py-2.5 rounded-full bg-[#8CC540] text-white font-semibold hover:bg-[#76ab34] transition">
                   Order Now
                 </button>
               </motion.div>
@@ -104,10 +98,10 @@ export default function ProductsPage() {
       </div>
 
       {/* GREEN CURVED EDGE */}
-      <div className="absolute bottom-0 left-0 w-full pointer-events-none">
+      <div className="absolute bottom-0 left-0 w-full pointer-events-none translate-y-1">
         <svg
           viewBox="0 0 1440 120"
-          className="block w-full h-[80px]"
+          className="block w-full h-[90px]"
           preserveAspectRatio="none"
         >
           <path
