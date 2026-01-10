@@ -5,10 +5,10 @@ const PremiumSaasNavbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const navLinks = [
-        { name: "Home", href: "#home" },
-        { name: "About", href: "#about" },
-        { name: "Products", href: "#products" },
-        { name: "Contact", href: "#contact" },
+        { name: "Home", href: "/" },
+        { name: "About", href: "/about" },
+        { name: "Products", href: "/products" },
+        { name: "Contact", href: "/contact" },
     ];
 
     return (

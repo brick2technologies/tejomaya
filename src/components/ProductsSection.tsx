@@ -2,44 +2,50 @@ const products = [
   {
     id: 1,
     name: "Idly Batter",
-    description:
-      "Soft, fluffy idlies made with naturally fermented batter using premium rice and urad dal.",
+    description: "Soft, fluffy idlies with natural fermentation.",
     image: "/idly-batter.png",
+    price: 99,
+    quantity: "1 KG",
   },
   {
     id: 2,
     name: "Dosa Batter",
-    description:
-      "Perfectly fermented dosa batter for crispy dosas with authentic taste and texture.",
+    description: "Perfect batter for crispy golden dosas.",
     image: "/dosa-batter.png",
+    price: 99,
+    quantity: "1 KG",
   },
   {
     id: 3,
     name: "Idly Karam",
-    description:
-      "Traditional spicy idly karam prepared with aromatic spices and premium ingredients.",
+    description: "Traditional spicy Andhra idly karam.",
     image: "/idly-karam.png",
+    price: 99,
+    quantity: "1 KG",
   },
   {
     id: 4,
     name: "Dosa Karam",
-    description:
-      "Flavor-packed dosa karam that enhances every bite with a perfect balance of spice.",
+    description: "Flavor-packed dosa karam blend.",
     image: "/dosa-karam.png",
+    price: 99,
+    quantity: "1 KG",
   },
   {
     id: 5,
     name: "Ragi Idly Batter",
-    description:
-      "Healthy ragi idly batter rich in fiber, perfect for nutritious and soft idlies.",
+    description: "Healthy fiber-rich ragi idly batter.",
     image: "/ragi-idly-batter.png",
+    price: 99,
+    quantity: "1 KG",
   },
   {
     id: 6,
     name: "Ragi Dosa Batter",
-    description:
-      "Wholesome ragi dosa batter offering a healthy twist with great taste and crispiness.",
+    description: "Nutritious ragi dosa batter with great taste.",
     image: "/ragi-dosa-batter.png",
+    price: 99,
+    quantity: "1 KG",
   },
 ];
 
@@ -47,82 +53,75 @@ export default function ProductsSection() {
   return (
     <section className="relative bg-transparent pb-20 px-6 sm:px-12">
       <div className="max-w-[1440px] mx-auto pb-28">
-        {/* SECTION HEADER */}
-        <div className="mb-16 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#f15c22] mb-4 merienda">
+
+        {/* HEADER */}
+        <div className="mb-14 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-[#f15c22] merienda">
             Our Products
           </h2>
-
-          <div className="h-1.5 w-24 bg-white/40 rounded-full mx-auto"></div>
-
-          <p className="mt-6 text-orange-50 max-w-2xl mx-auto text-lg">
-            Freshly prepared, naturally fermented batters and traditional karam
-            crafted for taste, health, and convenience.
+          <div className="h-1.5 w-24 bg-white/40 rounded-full mx-auto mt-4" />
+          <p className="mt-5 text-orange-50 max-w-2xl mx-auto text-lg">
+            Fresh • Hygienic • Traditionally Prepared
           </p>
         </div>
 
         {/* PRODUCT GRID */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => (
             <div
               key={product.id}
               className="
                 group relative
                 bg-white
-                border border-white/30
-                rounded-[2.5rem]
-                p-8
-                transition-all duration-500
-                hover:shadow-2xl
-                hover:-translate-y-2
+                rounded-[2rem]
+                p-5
+                border border-gray-200
+                transition-all duration-300
+                hover:-translate-y-1.5
+                hover:shadow-xl
               "
             >
-              {/* PRODUCT IMAGE */}
-              <div className="relative h-64 w-full mb-8 overflow-hidden rounded-2xl bg-white/70 flex items-center justify-center">
+              {/* PRICE + QTY */}
+              <div className="absolute top-4 right-4 flex flex-col items-end gap-1">
+                <span className="bg-[#8CC540] text-white text-sm font-bold px-4 py-1 rounded-full">
+                  ₹{product.price}
+                </span>
+                <span className="bg-gray-100 text-gray-800 text-xs font-semibold px-3 py-0.5 rounded-full">
+                  {product.quantity}
+                </span>
+              </div>
+
+              {/* IMAGE */}
+              <div className="h-44 w-full flex items-center justify-center mb-4 overflow-hidden rounded-xl bg-gray-50">
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-full h-full object-contain p-6 transition-transform duration-500 group-hover:scale-110"
+                  className="h-full object-contain p-4 transition-transform duration-300 group-hover:scale-110"
                 />
               </div>
 
-              {/* PRODUCT CONTENT */}
-              <div className="space-y-4">
-                <h3 className="text-2xl font-bold text-[#f15c22] merienda">
-                  {product.name}
-                </h3>
+              {/* CONTENT */}
+              <h3 className="text-xl font-bold text-[#f15c22] merienda">
+                {product.name}
+              </h3>
 
-                <p className="text-gray-700 leading-relaxed">
-                  {product.description}
-                </p>
+              <p className="text-gray-600 text-sm mt-2 line-clamp-2">
+                {product.description}
+              </p>
 
-                <button className="mt-4 flex items-center gap-2 font-semibold text-[#f15c22] transition-colors">
-                  View Details
-                  <svg
-                    className="w-5 h-5 transition-transform group-hover:translate-x-1"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </button>
-              </div>
+              {/* CTA */}
+              <button className="mt-4 w-full rounded-full bg-[#f15c22] py-2 text-white font-semibold hover:bg-[#d94f1e] transition">
+                Order Now
+              </button>
             </div>
           ))}
         </div>
       </div>
 
-      {/* WHITE CURVED DIV */}
-<div className="absolute bottom-0 left-0 w-full overflow-hidden z-30">
-  <div className="w-full h-[60px] md:h-[80px] bg-white rounded-tl-[120px] rounded-tr-[120px]" />
-</div>
-
+      {/* CURVE */}
+      <div className="absolute bottom-0 left-0 w-full overflow-hidden z-30">
+        <div className="w-full h-[60px] md:h-[80px] bg-white rounded-tl-[120px] rounded-tr-[120px]" />
+      </div>
     </section>
   );
 }
