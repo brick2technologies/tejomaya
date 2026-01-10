@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export default function ContactPage() {
   return (
-    <section className="relative py-24 bg-gray-50 overflow-hidden">
+    <section className="relative py-28 bg-gray-50 overflow-hidden">
       <div className="max-w-6xl mx-auto px-4">
 
         {/* Header */}
@@ -39,7 +39,7 @@ export default function ContactPage() {
 
             <div className="space-y-4 text-gray-700">
               <p>
-                📍 <strong>Location:</strong> Andhra Pradesh, India
+                📍 <strong>Location:</strong> Hyderabad, India
               </p>
               <p>
                 📞 <strong>Phone:</strong>{" "}
@@ -90,7 +90,7 @@ export default function ContactPage() {
               alert("Thank you! We will contact you shortly.");
             }}
           >
-            <h2 className="text-2xl font-bold text-gray-900">
+            <h2 className="text-2xl font-bold text-[#F15c22]">
               Send Us a Message
             </h2>
 

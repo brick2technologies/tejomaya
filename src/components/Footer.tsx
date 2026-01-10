@@ -1,12 +1,11 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   const footerRef = useRef<HTMLDivElement>(null);
-
   const { scrollYProgress } = useScroll();
 
-  // Fully hidden at start, reveal only at end
   const y = useTransform(scrollYProgress, [0, 0.7, 1], [200, 200, 0]);
   const opacity = useTransform(scrollYProgress, [0, 0.7, 0.85, 1], [0, 0, 0.6, 1]);
 
@@ -21,30 +20,52 @@ export default function Footer() {
       >
         {/* LINKS */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-10 text-center sm:text-left mb-12">
+          
+          {/* PRODUCTS */}
           <div>
             <h4 className="text-lg font-semibold mb-4 merienda">Products</h4>
             <ul className="space-y-2 text-white/90">
-              <li>Idly Batter</li>
-              <li>Dosa Batter</li>
-              <li>Idly / Dosa Karam</li>
+              <li>
+                <Link to="/products#idly-batter" className="hover:underline">
+                  Idly Batter
+                </Link>
+              </li>
+              <li>
+                <Link to="/products#dosa-batter" className="hover:underline">
+                  Dosa Batter
+                </Link>
+              </li>
+              <li>
+                <Link to="/products#idly-dosa-karam" className="hover:underline">
+                  Idly / Dosa Karam
+                </Link>
+              </li>
             </ul>
           </div>
 
+          {/* PAGES */}
           <div>
             <h4 className="text-lg font-semibold mb-4 merienda">Pages</h4>
             <ul className="space-y-2 text-white/90">
-              <li>Home</li>
-              <li>Our Process</li>
-              <li>Contact</li>
+              <li>
+                <Link to="/" className="hover:underline">Home</Link>
+              </li>
+              <li>
+                <Link to="/about" className="hover:underline">Our Process</Link>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:underline">Contact</Link>
+              </li>
             </ul>
           </div>
 
+          {/* CONTACT */}
           <div>
             <h4 className="text-lg font-semibold mb-4 merienda">Contact</h4>
             <ul className="space-y-2 text-white/90">
               <li>📞 +91 XXXXX XXXXX</li>
-              <li>📧 your@email.com</li>
-              <li>📍 Your City, India</li>
+              <li>📧 tejomayafoods@gmail.com</li>
+              <li>📍 Andhra Pradesh, India</li>
             </ul>
           </div>
         </div>
