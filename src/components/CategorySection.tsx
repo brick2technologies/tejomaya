@@ -11,7 +11,7 @@ const categories = [
   },
   {
     title: "Idly/Dosa Karam",
-    image: "/karam.png",
+    image: "/idli-karam.webp",
   },
 ];
 
