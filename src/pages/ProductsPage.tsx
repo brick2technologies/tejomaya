@@ -16,9 +16,16 @@ const products = [
     quantity: "1 KG",
   },
   {
-    name: "Idly / Dosa Karam",
-    desc: "Authentic Andhra-style karam with rich spice aroma",
-    image: "/products/idly-dosa-karam.jpg",
+    name: "Idly Karam",
+    desc: "Traditional spicy karam specially prepared for idly",
+    image: "/products/idly-karam.jpg",
+    price: 99,
+    quantity: "1 KG",
+  },
+  {
+    name: "Dosa Karam",
+    desc: "Flavor-rich karam crafted to enhance crispy dosas",
+    image: "/products/dosa-karam.jpg",
     price: 99,
     quantity: "1 KG",
   },
@@ -26,7 +33,7 @@ const products = [
 
 export default function ProductsPage() {
   return (
-    <section className="relative bg-gray-50 overflow-hidden pb-24">
+    <section className="relative bg-gray-50 overflow-hidden pt-20 pb-10">
       {/* CONTENT */}
       <div className="py-20 sm:py-24 lg:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
@@ -48,7 +55,8 @@ export default function ProductsPage() {
           </motion.div>
 
           {/* Product Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
             {products.map((product, i) => (
               <motion.div
                 key={i}
