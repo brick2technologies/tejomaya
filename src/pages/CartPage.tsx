@@ -23,7 +23,7 @@ export default function CartPage() {
 
   message += `🧾 *Grand Total: ₹${totalAmount}*`;
 
-  const phoneNumber = "918688277183"; // 🔴 replace with your WhatsApp number
+  const phoneNumber = "919248703556"; // 🔴 replace with your WhatsApp number
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
 
   window.open(whatsappUrl, "_blank");

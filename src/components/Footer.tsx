@@ -61,13 +61,18 @@ export default function Footer() {
 
           {/* CONTACT */}
           <div>
-            <h4 className="text-lg font-semibold mb-4 merienda">Contact</h4>
-            <ul className="space-y-2 text-white/90">
-              <li>📞 +91 XXXXX XXXXX</li>
-              <li>📧 tejomayafoods@gmail.com</li>
-              <li>📍 Andhra Pradesh, India</li>
-            </ul>
-          </div>
+  <h4 className="text-lg font-semibold mb-4 merienda">Contact</h4>
+  <ul className="space-y-2 text-white/90">
+    <li>📞 +91 9248703556</li>
+    <li>📧 care@tejomayafoods.com</li>
+    <li className="flex items-start gap-2">
+      <span>📍</span>
+      <span>
+        Plot No: 316, Sai Aishwarya Colony, Road No.6, Parvathapur(v), Peerzadiguda, Medipally(M), Medchal Malkajgiri(D), Hyderabad, Telangana, 500098.
+      </span>
+    </li>
+  </ul>
+</div>
         </div>
 
         {/* LOGO */}

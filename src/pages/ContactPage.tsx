@@ -44,16 +44,16 @@ export default function ContactPage() {
               <p>
                 📞 <strong>Phone:</strong>{" "}
                 <a
-                  href="tel:+919999999999"
+                  href="tel:+919248703556"
                   className="text-[#f15c22] font-medium"
                 >
-                  +91 99999 99999
+                  +91 92487 03556
                 </a>
               </p>
               <p>
                 💬 <strong>WhatsApp:</strong>{" "}
                 <a
-                  href="https://wa.me/919999999999"
+                  href="https://wa.me/919248703556"
                   target="_blank"
                   className="text-[#25D366] font-medium"
                 >
@@ -66,16 +66,16 @@ export default function ContactPage() {
                   href="mailto:tejomayafoods@gmail.com"
                   className="text-[#f15c22] font-medium"
                 >
-                  tejomayafoods@gmail.com
+                  care@tejomayafoods.com
                 </a>
               </p>
             </div>
 
-            <div className="pt-4">
+            {/* <div className="pt-4">
               <p className="text-sm text-gray-500">
                 ⏰ Orders accepted daily from <strong>6 AM – 8 PM</strong>
               </p>
-            </div>
+            </div> */}
           </motion.div>
 
           {/* Contact Form */}

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 
+
 const categories = [
   {
     title: "Idly Batter",
@@ -13,6 +14,10 @@ const categories = [
     title: "Idly/Dosa Karam",
     image: "/idli-karam.webp",
   },
+  {
+    title: "Snacks",
+    image: "/snacks.png", 
+  }
 ];
 
 export default function CategoriesSection() {
@@ -31,7 +36,7 @@ export default function CategoriesSection() {
         </div>
 
         {/* Circular Cards */}
-        <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 gap-10 place-items-center">
+        <div className="grid grid-cols-4 sm:grid-cols-2 lg:grid-cols-4 gap-10 place-items-center">
           {categories.map((item, index) => (
             <motion.div
               key={index}
