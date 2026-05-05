@@ -1,22 +1,32 @@
 "use client";
 
 import { useEffect, useState, useRef, type TouchEvent } from "react";
+import DosaBannerDesk from "../assets/banner/dosa-banner-desktop.jpeg";
+import DosaBannerTab from "../assets/banner/dosa-banner-tablet.jpeg";
+import DosaBannerMob from "../assets/banner/dosa-banner-mobile.jpeg";
+import IdlyBannerDesk from "../assets/banner/idli-banner-desktop.jpeg"
+import IdlyBannerTab from "../assets/banner/idli-banner-tablet.jpeg";
+import IdlyBannerMob from "../assets/banner/idli-banner-mobile.jpeg";
+import KaramBannerDesk from "../assets/banner/karam-banner-desktop.jpeg";
+import KaramBannerTab from "../assets/banner/karam-banner-tablet.jpeg";
+import KaramBannerMob from "../assets/banner/karam-banner-mobile.jpeg";
 
 const slides = [
   {
-    desktop: "/hero-1-Desktop.jpg",
-    tablet: "/hero-1-tablet.jpg",
-    mobile: "/hero-1-mobile.jpg",
+    desktop: DosaBannerDesk,
+    tablet: DosaBannerTab,
+    mobile: DosaBannerMob,
+   
   },
   {
-    desktop: "/hero-2-desktop.jpg",
-    tablet: "/hero-2-tablet.jpg",
-    mobile: "/hero-2-mobile.jpg",
+    desktop: IdlyBannerDesk,
+    tablet: IdlyBannerTab,
+    mobile: IdlyBannerMob,
   },
   {
-    desktop: "/hero-3-desktop.jpg",
-    tablet: "/hero-3-tablet.jpg",
-    mobile: "/hero-3-mobile.jpg",
+    desktop: KaramBannerDesk,
+    tablet: KaramBannerTab,
+    mobile: KaramBannerMob,
   },
 ];
 
@@ -98,7 +108,7 @@ export default function HeroImageSlider() {
                       <img
                         src={slide.mobile}
                         alt={`Slide ${index + 1}`}
-                        className="w-full h-full object-contain p-2 sm:p-0 transition-transform duration-700"
+                        className="w-full h-full object-cover p-2 sm:p-0 transition-transform duration-700"
                         draggable="false"
                       />
                     </picture>

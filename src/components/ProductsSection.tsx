@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
-import { products, type ProductType, type Variant } from "../data/productsData"; // Ensure this path matches where you saved the data file
+import { products, type ProductType, type Variant } from "../data/productsData"; 
 
-// Sub-component to manage variant state for each product
+
 function ProductCard({ product }: { product: ProductType }) {
   const { addToCart, cart } = useCart();
   const navigate = useNavigate();
 
-  // State to track selected quantity/price
+
   const [selectedVariant, setSelectedVariant] = useState<Variant>(product.variants[0]);
 
-  // Find index to generate a unique numeric ID for the cart (fixes TS errors)
+
   const variantIndex = product.variants.findIndex(v => v.quantity === selectedVariant.quantity);
   const cartItemId = product.variants.length > 1 
     ? product.id + (variantIndex * 1000) 
@@ -65,7 +65,7 @@ function ProductCard({ product }: { product: ProductType }) {
         <img
           src={product.image}
           alt={product.name}
-          className="h-full object-contain p-3 sm:p-4 transition-transform duration-300 group-hover:scale-110"
+          className="h-full object-fill p-3 sm:p-4 transition-transform duration-300 group-hover:scale-110"
         />
       </div>
 

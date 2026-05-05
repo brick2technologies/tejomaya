@@ -1,4 +1,30 @@
-// src/data/productsData.ts
+import IdlyBatter from "../assets/products/idli-batter.jpeg";
+import DosaBatter from "../assets/products/dosa-batter.jpeg";
+import IdlyKaram from "../assets/products/idli-karam.jpeg";
+import DosaKaram from "../assets/products/dosa-karam.jpeg";
+import RagiIdlyBatter from "../assets/products/ragi-idli-batter.jpeg";
+import RagiDosaBatter from "../assets/products/ragi-dosa-batter.jpeg";
+// import Sunnunda from "../assets/products/sunnunda.jpeg";
+// import NuvvulaLaddu from "../assets/products/nuvvula-laddu.jpeg";
+// import DryFruitsLaddu from "../assets/products/dry-fruits-laddu.jpeg";
+// import KaramBoondi from "../assets/products/karam-boondi.jpeg";
+// import AtukulaMixture from "../assets/products/atukula-mixture.jpeg";
+// import Nippatlu from "../assets/products/nippatlu.jpeg";
+// import PanchadaraGavvalu from "../assets/products/panchadara-gavvalu.jpeg";
+// import RagiMurukulu from "../assets/products/ragi-murukulu.jpeg";
+// import RagiRibbonPakodi from "../assets/products/ragi-ribbon-pakodi.jpeg";
+// import RagiNippatlu from "../assets/products/ragi-nippatlu.jpeg";
+// import BoondiLaddu from "../assets/products/boondi-laddu.jpeg";
+// import Murukulu from "../assets/products/murukulu.jpeg";
+// import BellamGavvalu from "../assets/products/bellam-gavvalu.jpeg";
+// import PalliLaddu from "../assets/products/palli-laddu.jpeg";
+// import RibbonPakodi from "../assets/products/ribbon-pakodi.jpeg";
+// import SannaKarapusa from "../assets/products/sanna-karapusa.jpeg";
+// import CornChudwa from "../assets/products/corn-chudwa.jpeg";
+// import Chakodi from "../assets/products/chakodi.jpeg";
+// import Karjikayalu from "../assets/products/karjikayalu.jpeg";
+// import Mixture from "../assets/products/mixture.jpeg";
+
 
 export interface Variant {
   quantity: string;
@@ -19,28 +45,42 @@ export const products: ProductType[] = [
     id: 1,
     name: "Idly Batter",
     desc: "Soft & fluffy idlies made with naturally fermented batter",
-    image: "/products/idly-batter.jpg",
+    image: IdlyBatter,
     variants: [{ quantity: "1 KG", price: 99 }],
   },
   {
     id: 2,
     name: "Dosa Batter",
     desc: "Perfectly fermented batter for crispy golden dosas",
-    image: "/products/dosa-batter.jpg",
+    image: DosaBatter,
+    variants: [{ quantity: "1 KG", price: 99 }],
+  },
+   {
+    id: 1,
+    name: "Ragi Idly Batter",
+    desc: "Soft & fluffy idlies made with naturally fermented batter",
+    image: RagiIdlyBatter,
+    variants: [{ quantity: "1 KG", price: 99 }],
+  },
+  {
+    id: 2,
+    name: "Ragi Dosa Batter",
+    desc: "Perfectly fermented batter for crispy golden dosas",
+    image: RagiDosaBatter,
     variants: [{ quantity: "1 KG", price: 99 }],
   },
   {
     id: 3,
     name: "Idly Karam",
     desc: "Traditional spicy karam specially prepared for idly",
-    image: "/products/idly-karam.jpg",
+    image: IdlyKaram,
     variants: [{ quantity: "1 KG", price: 99 }],
   },
   {
     id: 4,
     name: "Dosa Karam",
     desc: "Flavor-rich karam crafted to enhance crispy dosas",
-    image: "/products/dosa-karam.jpg",
+    image: DosaKaram,
     variants: [{ quantity: "1 KG", price: 99 }],
   },
   
@@ -49,7 +89,7 @@ export const products: ProductType[] = [
     id: 5,
     name: "Sunnunda",
     desc: "Authentic and traditional sweet.",
-    image: "/products/sunnunda.jpg",
+    image: "../assets/products/sunnunda.jpeg",
     variants: [
       { quantity: "1 KG", price: 800 },
       { quantity: "500 GM", price: 400 },
@@ -60,7 +100,7 @@ export const products: ProductType[] = [
     id: 6,
     name: "Nuvvula Laddu",
     desc: "Healthy and delicious sesame laddu.",
-    image: "/products/nuvvula-laddu.jpg",
+    image: "../assets/products/nuvvula-laddu.jpeg",
     variants: [
       { quantity: "1 KG", price: 650 },
       { quantity: "500 GM", price: 325 },
@@ -71,7 +111,7 @@ export const products: ProductType[] = [
     id: 7,
     name: "Dry Fruits Laddu",
     desc: "Rich and nutritious dry fruits laddu.",
-    image: "/products/dry-fruits-laddu.jpg",
+    image: "../assets/products/dry-fruits-laddu.jpeg",
     variants: [
       { quantity: "1 KG", price: 1600 },
       { quantity: "500 GM", price: 800 },
@@ -82,7 +122,7 @@ export const products: ProductType[] = [
     id: 8,
     name: "Karam Boondi",
     desc: "Crispy and spicy traditional snack.",
-    image: "/products/karam-boondi.jpg",
+    image: "../assets/products/karam-boondi.jpeg",
     variants: [
       { quantity: "1 KG", price: 700 },
       { quantity: "500 GM", price: 350 },
@@ -93,7 +133,7 @@ export const products: ProductType[] = [
     id: 9,
     name: "Atukula Mixture",
     desc: "Crunchy poha mixture.",
-    image: "/products/atukula-mixture.jpg",
+    image: "../assets/products/atukula-mixture.jpeg",
     variants: [
       { quantity: "1 KG", price: 600 },
       { quantity: "500 GM", price: 300 },
@@ -104,7 +144,7 @@ export const products: ProductType[] = [
     id: 10,
     name: "Nippatlu",
     desc: "Crispy and savory rice crackers.",
-    image: "/products/nippatlu.jpg",
+    image: "../assets/products/nippatlu.jpeg",
     variants: [
       { quantity: "1 KG", price: 600 },
       { quantity: "500 GM", price: 300 },
@@ -115,7 +155,7 @@ export const products: ProductType[] = [
     id: 11,
     name: "Panchadara Gavvalu",
     desc: "Sweet shell-shaped traditional snack.",
-    image: "/products/panchadara-gavvalu.jpg",
+    image: "../assets/products/panchadara-gavvalu.jpeg",
     variants: [
       { quantity: "1 KG", price: 500 },
       { quantity: "500 GM", price: 250 },
@@ -126,7 +166,7 @@ export const products: ProductType[] = [
     id: 12,
     name: "Ragi Murukulu",
     desc: "Healthy and crispy ragi murukulu.",
-    image: "/products/ragi-murukulu.jpg",
+    image: "../assets/products/ragi-murukulu.jpeg",
     variants: [
       { quantity: "1 KG", price: 800 },
       { quantity: "500 GM", price: 400 },
@@ -137,7 +177,7 @@ export const products: ProductType[] = [
     id: 13,
     name: "Ragi Ribbon Pakodi",
     desc: "Nutritious ragi ribbon pakodi.",
-    image: "/products/ragi-ribbon-pakodi.jpg",
+    image: "../assets/products/ragi-ribbon-pakodi.jpeg",
     variants: [
       { quantity: "1 KG", price: 800 },
       { quantity: "500 GM", price: 400 },
@@ -148,7 +188,7 @@ export const products: ProductType[] = [
     id: 14,
     name: "Ragi Nippatlu",
     desc: "Fiber-rich crispy ragi nippatlu.",
-    image: "/products/ragi-nippatlu.jpg",
+    image: "../assets/products/ragi-nippatlu.jpeg",
     variants: [
       { quantity: "1 KG", price: 900 },
       { quantity: "500 GM", price: 450 },
@@ -159,7 +199,7 @@ export const products: ProductType[] = [
     id: 15,
     name: "Boondi Laddu",
     desc: "Classic sweet boondi laddu.",
-    image: "/products/boondi-laddu.jpg",
+    image: "../assets/products/boondi-laddu.jpeg",
     variants: [
       { quantity: "1 KG", price: 600 },
       { quantity: "500 GM", price: 300 },
@@ -170,7 +210,7 @@ export const products: ProductType[] = [
     id: 16,
     name: "Murukulu",
     desc: "Traditional crunchy murukulu.",
-    image: "/products/murukulu.jpg",
+    image: "../assets/products/murukulu.jpeg",
     variants: [
       { quantity: "1 KG", price: 400 },
       { quantity: "500 GM", price: 200 },
@@ -181,7 +221,7 @@ export const products: ProductType[] = [
     id: 17,
     name: "Bellam Gavvalu",
     desc: "Jaggery coated shell-shaped sweet.",
-    image: "/products/bellam-gavvalu.jpg",
+    image: "../assets/products/bellam-gavvalu.jpeg",
     variants: [
       { quantity: "1 KG", price: 600 },
       { quantity: "500 GM", price: 300 },
@@ -192,7 +232,7 @@ export const products: ProductType[] = [
     id: 18,
     name: "Palli Laddu",
     desc: "Crunchy peanut sweet laddu.",
-    image: "/products/palli-laddu.jpg",
+    image: "../assets/products/palli-laddu.jpeg",
     variants: [
       { quantity: "1 KG", price: 550 },
       { quantity: "500 GM", price: 280 },
@@ -203,7 +243,7 @@ export const products: ProductType[] = [
     id: 19,
     name: "Ribbon Pakodi",
     desc: "Crispy and savory ribbon snacks.",
-    image: "/products/ribbon-pakodi.jpg",
+    image: "../assets/products/ribbon-pakodi.jpeg",
     variants: [
       { quantity: "1 KG", price: 500 },
       { quantity: "500 GM", price: 250 },
@@ -214,7 +254,7 @@ export const products: ProductType[] = [
     id: 20,
     name: "Sanna Karapusa",
     desc: "Fine and crispy sev snack.",
-    image: "/products/sanna-karapusa.jpg",
+    image: "../assets/products/sanna-karapusa.jpeg",
     variants: [
       { quantity: "1 KG", price: 550 },
       { quantity: "500 GM", price: 280 },
@@ -225,7 +265,7 @@ export const products: ProductType[] = [
     id: 21,
     name: "Corn Chudwa",
     desc: "Flavorful corn flakes mixture.",
-    image: "/products/corn-chudwa.jpg",
+    image: "../assets/products/corn-chudwa.jpeg",
     variants: [
       { quantity: "1 KG", price: 400 },
       { quantity: "500 GM", price: 200 },
@@ -236,7 +276,7 @@ export const products: ProductType[] = [
     id: 22,
     name: "Chakodi",
     desc: "Crunchy ring-shaped savory snack.",
-    image: "/products/chakodi.jpg",
+    image: "../assets/products/chakodi.jpeg",
     variants: [
       { quantity: "1 KG", price: 600 },
       { quantity: "500 GM", price: 300 },
@@ -247,7 +287,7 @@ export const products: ProductType[] = [
     id: 23,
     name: "Karjikayalu",
     desc: "Traditional sweet stuffed pastry.",
-    image: "/products/karjikayalu.jpg",
+    image: "../assets/products/karjikayalu.jpeg",
     variants: [
       { quantity: "1 KG", price: 900 },
       { quantity: "500 GM", price: 450 },
@@ -258,7 +298,7 @@ export const products: ProductType[] = [
     id: 24,
     name: "Mixture",
     desc: "Classic savory and crunchy mixture.",
-    image: "/products/mixture.jpg",
+    image: "../assets/products/mixture.jpeg",
     variants: [
       { quantity: "1 KG", price: 600 },
       { quantity: "500 GM", price: 300 },
