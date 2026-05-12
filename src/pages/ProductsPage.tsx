@@ -1,11 +1,7 @@
-// src/pages/ProductsPage.tsx
-
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
-
-// Import your data and types (Adjust the path if necessary)
 import { products, type ProductType, type Variant } from "../data/productsData";
 
 interface ProductCardProps {
@@ -13,162 +9,390 @@ interface ProductCardProps {
   index: number;
 }
 
-// Reusable Product Card Component to handle variant selection state
+type CategoryType = 'all' | 'normal' | 'ragi' | 'snacks';
+type SortOrderType = 'default' | 'lowToHigh' | 'highToLow';
+
+const ITEMS_PER_PAGE = 8; // Change this number to show more/less items per page
+
+// ----------------------------------------------------------------------
+// 1. REUSABLE PRODUCT CARD COMPONENT
+// ----------------------------------------------------------------------
 function ProductCard({ product, index }: ProductCardProps) {
   const { addToCart, cart } = useCart();
   const navigate = useNavigate();
   
-  const [selectedVariant, setSelectedVariant] = useState<Variant>(product.variants[0]);
+  const defaultVariant = 
+    product.variants.find((v) => v.quantity === "250 GM") || product.variants[0];
 
-  // Find the index of the selected variant
+  const [selectedVariant, setSelectedVariant] = useState<Variant>(defaultVariant);
+
   const variantIndex = product.variants.findIndex(v => v.quantity === selectedVariant.quantity);
-
-  // Generate a unique NUMERIC ID so cart can differentiate sizes, satisfying CartContext
-  // e.g., Base ID: 5.  1st size: 5.  2nd size: 1005.  3rd size: 2005.
   const cartItemId = product.variants.length > 1 
     ? product.id + (variantIndex * 1000) 
     : product.id;
 
-  // Replaced 'any' with an explicit inline type to satisfy ESLint
   const isInCart = cart.some((item: { id: number }) => item.id === cartItemId);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: (index % 4) * 0.08 }}
-      className="group relative bg-white rounded-xl sm:rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 p-3 sm:p-5 flex flex-col"
+      layout
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.3, delay: (index % ITEMS_PER_PAGE) * 0.05 }}
+      className="
+        group relative flex flex-col h-full
+        bg-white
+        rounded-[20px] sm:rounded-[24px]
+        p-2.5 sm:p-4
+        border border-gray-100
+        transition-shadow duration-400 ease-out
+        hover:shadow-[0_12px_30px_-10px_rgba(241,92,34,0.15)]
+        hover:border-[#f15c22]/20
+      "
     >
-      {/* Price + Quantity Selector */}
-      <div className="absolute top-3 right-3 sm:top-4 sm:right-4 flex flex-col items-end gap-1 z-10">
-        <span className="bg-[#F15C22] text-white text-xs sm:text-sm font-bold px-2.5 sm:px-3 py-0.5 rounded-full shadow-sm">
-          ₹{selectedVariant.price}
-        </span>
-        
-        {product.variants.length > 1 ? (
-          <select
-            value={selectedVariant.quantity}
-            onChange={(e) => {
-              const newVariant = product.variants.find((v) => v.quantity === e.target.value);
-              if (newVariant) setSelectedVariant(newVariant);
-            }}
-            className="bg-white/90 backdrop-blur border border-gray-200 text-gray-800 text-[10px] sm:text-xs font-semibold px-2 py-1 rounded-full cursor-pointer outline-none shadow-sm focus:border-[#F15C22] focus:ring-1 focus:ring-[#F15C22] transition-all"
-          >
-            {product.variants.map((v) => (
-              <option key={v.quantity} value={v.quantity}>
-                {v.quantity}
-              </option>
-            ))}
-          </select>
-        ) : (
-          <span className="bg-gray-100 text-gray-700 text-[10px] sm:text-xs font-semibold px-2.5 sm:px-3 py-0.5 rounded-full shadow-sm">
-            {selectedVariant.quantity}
-          </span>
-        )}
-      </div>
+      <div className="relative h-32 sm:h-48 w-full rounded-[14px] sm:rounded-[18px] bg-[#faf9f7] flex items-center justify-center overflow-hidden mb-3 sm:mb-4">
+        <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-10 bg-white/80 backdrop-blur-md border border-white text-gray-800 text-[10px] sm:text-sm font-extrabold px-2 sm:px-3 py-1 sm:py-1.5 rounded-full shadow-sm">
+          <span className="text-[#8CC540]">₹</span>{selectedVariant.price}
+        </div>
 
-      {/* Image */}
-      <div className="h-28 sm:h-40 lg:h-44 w-full rounded-lg sm:rounded-xl overflow-hidden bg-gray-50">
         <img
           src={product.image}
           alt={product.name}
-          className="h-full w-full object-contain p-2 transition-transform duration-300 group-hover:scale-105"
+          className="h-full w-full object-cover sm:object-contain p-2 transition-transform duration-500 group-hover:scale-105"
         />
       </div>
 
-      {/* Content */}
-      <div className="mt-4 flex-1">
-        <h3 className="text-sm sm:text-lg font-semibold text-gray-900">
-          {product.name}
-        </h3>
-        <p className="mt-1.5 text-xs sm:text-sm text-gray-600 leading-relaxed">
+      <div className="flex flex-col flex-grow px-1">
+        <div className="flex flex-col sm:flex-row justify-between items-start gap-2 mb-2">
+          <h3 className="text-sm sm:text-xl font-bold text-gray-800 merienda leading-tight">
+            {product.name}
+          </h3>
+
+          {product.variants.length > 1 ? (
+            <div className="relative shrink-0 w-full sm:w-auto mt-1 sm:mt-0">
+              <select
+                value={selectedVariant.quantity}
+                onChange={(e) => {
+                  const newVariant = product.variants.find((v) => v.quantity === e.target.value);
+                  if (newVariant) setSelectedVariant(newVariant);
+                }}
+                className="appearance-none w-full sm:w-auto bg-gray-50 border border-gray-200 text-gray-700 text-[10px] sm:text-xs font-bold px-2.5 sm:px-3 py-1.5 sm:py-1.5 pr-6 rounded-full cursor-pointer outline-none focus:border-[#f15c22] focus:ring-1 focus:ring-[#f15c22] transition-all"
+              >
+                {product.variants.map((v) => (
+                  <option key={v.quantity} value={v.quantity}>
+                    {v.quantity}
+                  </option>
+                ))}
+              </select>
+              <div className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none">
+                <svg className="w-2.5 h-2.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </div>
+          ) : (
+            <span className="shrink-0 bg-gray-50 text-gray-500 border border-gray-100 text-[10px] sm:text-xs font-bold px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full mt-1 sm:mt-0">
+              {selectedVariant.quantity}
+            </span>
+          )}
+        </div>
+
+        <p className="text-gray-500 text-[10px] sm:text-sm line-clamp-2 mb-4 leading-relaxed">
           {product.desc}
         </p>
-      </div>
 
-      {/* CTA Buttons */}
-      <div className="mt-4 sm:mt-6 flex gap-2 sm:gap-3">
-        {/* ADD TO CART */}
-        <button
-          disabled={isInCart}
-          onClick={() =>
-            addToCart({
-              id: cartItemId, // Guaranteed to be a number now
-              name: product.variants.length > 1 ? `${product.name} (${selectedVariant.quantity})` : product.name,
-              price: selectedVariant.price,
-              image: product.image,
-            })
-          }
-          className={`flex-1 py-2 sm:py-2.5 rounded-full text-[10px] sm:text-xs md:text-sm font-semibold transition
-            ${
-              isInCart
-                ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                : "border border-[#8CC540] text-[#8CC540] hover:bg-[#8CC540] hover:text-white"
-            }
-          `}
-        >
-          {isInCart ? "Added ✓" : "Add to Cart"}
-        </button>
-
-        {/* ORDER NOW */}
-        <button
-          onClick={() => {
-            if (!isInCart) {
+        <div className="mt-auto flex flex-col sm:flex-row gap-1.5 sm:gap-2">
+          <button
+            disabled={isInCart}
+            onClick={() =>
               addToCart({
-                id: cartItemId, // Guaranteed to be a number now
+                id: cartItemId,
                 name: product.variants.length > 1 ? `${product.name} (${selectedVariant.quantity})` : product.name,
                 price: selectedVariant.price,
                 image: product.image,
-              });
+              })
             }
-            navigate("/cart");
-          }}
-          className="flex-1 py-2 sm:py-2.5 rounded-full bg-[#8CC540] text-white text-[10px] sm:text-xs md:text-sm font-semibold hover:bg-[#76ab34] transition"
-        >
-          Order Now
-        </button>
+            className={`flex-1 rounded-full py-2 sm:py-2.5 text-[9px] sm:text-[11px] md:text-xs font-bold uppercase tracking-wider transition-all duration-300
+              ${
+                isInCart
+                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  : "bg-white border-2 border-gray-100 text-gray-700 hover:border-[#f15c22] hover:text-[#f15c22]"
+              }
+            `}
+          >
+            {isInCart ? "In Cart ✓" : "Add to Cart"}
+          </button>
+
+          <button
+            onClick={() => {
+              if (!isInCart) {
+                addToCart({
+                  id: cartItemId,
+                  name: product.variants.length > 1 ? `${product.name} (${selectedVariant.quantity})` : product.name,
+                  price: selectedVariant.price,
+                  image: product.image,
+                });
+              }
+              navigate("/cart");
+            }}
+            className="flex-1 rounded-full bg-[#f15c22] py-2 sm:py-2.5 text-[9px] sm:text-[11px] md:text-xs font-bold uppercase tracking-wider text-white hover:bg-[#e04f1a] hover:shadow-[0_4px_12px_rgba(241,92,34,0.3)] transition-all duration-300"
+          >
+            Order Now
+          </button>
+        </div>
       </div>
     </motion.div>
   );
 }
 
+// ----------------------------------------------------------------------
+// 2. MAIN PAGE COMPONENT
+// ----------------------------------------------------------------------
 export default function ProductsPage() {
-  return (
-    <section className="relative bg-gray-50 overflow-hidden pt-16 sm:pt-20 pb-10">
-      <div className="py-16 sm:py-20 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+  // Filter & Pagination States
+  const [categoryFilter, setCategoryFilter] = useState<CategoryType>('all');
+  const [sortOrder, setSortOrder] = useState<SortOrderType>('default');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false);
 
-          {/* Heading */}
+  const categories: { id: CategoryType; label: string }[] = [
+    { id: 'all', label: 'All Products' },
+    { id: 'normal', label: 'Daily Essentials' },
+    { id: 'ragi', label: 'Ragi Specials' },
+    { id: 'snacks', label: 'Snacks & Sweets' },
+  ];
+
+  const sortOptions: { id: SortOrderType; label: string }[] = [
+    { id: 'default', label: 'Featured' },
+    { id: 'lowToHigh', label: 'Price: Low to High' },
+    { id: 'highToLow', label: 'Price: High to Low' },
+  ];
+
+  // Reset to page 1 whenever filters change
+
+
+  // Filter and Sort Logic
+  const filteredAndSortedProducts = useMemo(() => {
+    let result = [...products];
+
+    // 1. Filter by Category
+    if (categoryFilter !== 'all') {
+      result = result.filter((p) => p.category === categoryFilter);
+    }
+
+    // 2. Sort by Price
+    if (sortOrder !== 'default') {
+      result.sort((a, b) => {
+        const aMinPrice = Math.min(...a.variants.map((v) => v.price));
+        const bMinPrice = Math.min(...b.variants.map((v) => v.price));
+        
+        return sortOrder === 'lowToHigh' 
+          ? aMinPrice - bMinPrice 
+          : bMinPrice - aMinPrice;
+      });
+    }
+
+    return result;
+  }, [categoryFilter, sortOrder]);
+
+  // Pagination Logic
+  const totalPages = Math.ceil(filteredAndSortedProducts.length / ITEMS_PER_PAGE);
+  const currentProducts = filteredAndSortedProducts.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
+  return (
+    <section className="relative bg-[#fcfbf9] overflow-hidden pt-16 sm:pt-20 pb-10 min-h-screen">
+      <div className="py-12 sm:py-16 lg:py-20">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10">
+
+          {/* PAGE HEADER */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-10 sm:mb-14"
+            className="text-center mb-10 sm:mb-16"
           >
-            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-[#F15C22]">
-              Fresh Products & Authentic Snacks
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#f15c22] merienda tracking-tight">
+              Our Products
             </h2>
-            <p className="mt-3 text-xs sm:text-sm lg:text-base text-gray-600">
-              Hygienic • Fresh • Traditionally Prepared
-            </p>
+            <div className="h-1.5 w-20 sm:w-28 bg-[#8CC540] rounded-full mx-auto mt-4 sm:mt-5 opacity-80" />
           </motion.div>
 
-          {/* Product Grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-            {products.map((product, i) => (
-              <ProductCard key={product.id} product={product} index={i} />
-            ))}
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 relative z-10">
+            
+            {/* E-COMMERCE SIDEBAR (FILTERS) */}
+            <div className="w-full lg:w-64 shrink-0">
+              <div className="bg-white rounded-2xl p-5 sm:p-6 border border-gray-100 shadow-sm sticky top-24 z-20">
+                <div className="flex items-center justify-between lg:hidden mb-4">
+                  <h3 className="font-bold text-gray-800 text-lg">Filters</h3>
+                  <span className="text-xs font-semibold text-gray-500 bg-gray-100 px-2.5 py-1 rounded-full">
+                    {filteredAndSortedProducts.length} Items
+                  </span>
+                </div>
+
+                {/* Category Filter */}
+                <div className="mb-8">
+                  <h3 className="hidden lg:block font-bold text-gray-800 text-lg mb-4">Categories</h3>
+                  {/* Added hidden scrollbar styles to the container below */}
+                  <div 
+                    className="flex flex-row lg:flex-col gap-2 overflow-x-auto pb-2 lg:pb-0 [&::-webkit-scrollbar]:hidden" 
+                    style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+                  >
+                    {categories.map((cat) => (
+                      <button
+                        key={cat.id}
+                        onClick={() => {
+  setCategoryFilter(cat.id);
+  setCurrentPage(1); // Reset page directly on click
+}}
+                        className={`whitespace-nowrap px-4 py-2 sm:py-2.5 rounded-full lg:rounded-xl text-xs sm:text-sm font-bold transition-all text-left
+                          ${categoryFilter === cat.id 
+                            ? "bg-[#f15c22] text-white shadow-md" 
+                            : "bg-gray-50 text-gray-600 hover:bg-gray-100"
+                          }
+                        `}
+                      >
+                        {cat.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Custom Sort Dropdown */}
+                <div className="relative">
+                  <h3 className="font-bold text-gray-800 text-sm sm:text-base mb-3">Sort By Price</h3>
+                  
+                  {/* Invisible overlay to close dropdown when clicking outside */}
+                  {isSortDropdownOpen && (
+                    <div 
+                      className="fixed inset-0 z-30" 
+                      onClick={() => setIsSortDropdownOpen(false)}
+                    />
+                  )}
+
+                  <button
+                    onClick={() => setIsSortDropdownOpen(!isSortDropdownOpen)}
+                    className="relative z-40 w-full flex items-center justify-between bg-gray-50 border border-gray-200 text-gray-700 text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-xl transition-all hover:border-[#f15c22]"
+                  >
+                    <span>{sortOptions.find(o => o.id === sortOrder)?.label}</span>
+                    <svg className={`w-4 h-4 transition-transform duration-300 ${isSortDropdownOpen ? 'rotate-180 text-[#f15c22]' : 'text-gray-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+
+                  <AnimatePresence>
+                    {isSortDropdownOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute z-50 w-full mt-2 bg-white border border-gray-100 rounded-xl shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1)] overflow-hidden"
+                      >
+                        {sortOptions.map((option) => (
+                          <button
+                            key={option.id}
+                            onClick={() => {
+                              setSortOrder(option.id);
+                              setIsSortDropdownOpen(false);
+                            }}
+                            className={`w-full text-left px-4 py-2.5 text-xs sm:text-sm font-semibold transition-colors
+                              ${sortOrder === option.id 
+                                ? 'bg-[#f15c22]/10 text-[#f15c22]' 
+                                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                              }
+                            `}
+                          >
+                            {option.label}
+                          </button>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+              </div>
+            </div>
+
+            {/* PRODUCT GRID SECTION */}
+            <div className="flex-1 pb-20">
+              <div className="hidden lg:flex items-center justify-between mb-6">
+                <p className="text-gray-500 font-medium">
+                  Showing <span className="text-gray-900 font-bold">{filteredAndSortedProducts.length}</span> results
+                </p>
+              </div>
+
+              {filteredAndSortedProducts.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-20 text-center">
+                  <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                    <span className="text-3xl">🔍</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-800">No products found</h3>
+                  <p className="text-gray-500 mt-2">Try changing your filters.</p>
+                </div>
+              ) : (
+                <>
+                  <motion.div layout className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 min-h-[500px] content-start">
+                    <AnimatePresence mode="popLayout">
+                      {currentProducts.map((product, i) => (
+                        <ProductCard key={product.id} product={product} index={i} />
+                      ))}
+                    </AnimatePresence>
+                  </motion.div>
+
+                  {/* PAGINATION CONTROLS */}
+                  {totalPages > 1 && (
+                    <div className="mt-12 flex justify-center items-center gap-2">
+                      <button
+                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                        disabled={currentPage === 1}
+                        className="p-2 rounded-full border border-gray-200 text-gray-500 hover:bg-[#f15c22] hover:text-white hover:border-[#f15c22] disabled:opacity-50 disabled:pointer-events-none transition-all"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
+                      </button>
+
+                      <div className="flex gap-2">
+                        {Array.from({ length: totalPages }).map((_, i) => (
+                          <button
+                            key={i + 1}
+                            onClick={() => setCurrentPage(i + 1)}
+                            className={`w-9 h-9 rounded-full text-sm font-bold transition-all flex items-center justify-center
+                              ${currentPage === i + 1 
+                                ? 'bg-[#f15c22] text-white shadow-md' 
+                                : 'bg-white border border-gray-200 text-gray-600 hover:border-[#f15c22] hover:text-[#f15c22]'
+                              }
+                            `}
+                          >
+                            {i + 1}
+                          </button>
+                        ))}
+                      </div>
+
+                      <button
+                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                        disabled={currentPage === totalPages}
+                        className="p-2 rounded-full border border-gray-200 text-gray-500 hover:bg-[#f15c22] hover:text-white hover:border-[#f15c22] disabled:opacity-50 disabled:pointer-events-none transition-all"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+
           </div>
         </div>
       </div>
 
       {/* GREEN CURVED EDGE */}
-      <div className="absolute bottom-0 left-0 w-full pointer-events-none translate-y-1">
+      <div className="absolute bottom-0 left-0 w-full pointer-events-none translate-y-1 z-30">
         <svg
           viewBox="0 0 1440 120"
-          className="block w-full h-[80px] sm:h-[90px]"
+          className="block w-full h-[60px] sm:h-[90px]"
           preserveAspectRatio="none"
         >
           <path
